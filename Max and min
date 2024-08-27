@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <limits.h> 
+
+typedef struct TreeNode {
+    int value;
+    struct TreeNode* left;
+    struct TreeNode* right;
+} TreeNode;
+
+void findMinMax(TreeNode* root, int* min, int* max) {
+    if (root == NULL) {
+        return;
+    }
+    if (root->value < *min) {
+        *min = root->value;
+    }
+    if (root->value > *max) {
+        *max = root->value;
+    }
+
+    findMinMax(root->left, min, max);
+    findMinMax(root->right, min, max);
+}
+int main() {
+    TreeNode node1 = { 10, NULL, NULL };
+    TreeNode node2 = { 20, NULL, NULL };
+    TreeNode node3 = { 5, &node1, &node2 };
+    TreeNode root = { 15, &node3, NULL };
+
+    int min = INT_MAX;
+    int max = INT_MIN;
+
+    findMinMax(&root, &min, &max);
+
+    printf("Minimum value in the tree: %d\n", min);
+    printf("Maximum value in the tree: %d\n", max);
+
+    return 0;
+}
