@@ -11,7 +11,7 @@ Node* createNode(int data);
 void printInOrder(Node* root);
 
 int main() {
-    /
+
     Node *root = createNode(1);
     root->left = createNode(2);
     root->right = createNode(3);
@@ -22,8 +22,6 @@ int main() {
 
     return 0;
 }
-
-// Function to create a new node with given data
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = data;
@@ -32,7 +30,6 @@ Node* createNode(int data) {
     return newNode;
 }
 
-// Function to print the binary tree in-order
 void printInOrder(Node* root) {
     if (root == NULL) {
         return;
