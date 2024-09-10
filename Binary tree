@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct TreeNode {
+    int value;
+    struct TreeNode *left;
+    struct TreeNode *right;
+} TreeNode;
+
+TreeNode* create_node(int value) {
+    TreeNode* new_node = (TreeNode*)malloc(sizeof(TreeNode));
+    new_node->value = value;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    return new_node;
+}
+
+TreeNode* insert_node(TreeNode* root, int value) {
+    if (root == NULL) {
+        return create_node(value);
+    }
+    
+    if (value < root->value) {
+        root->left = insert_node(root->left, value);
+    } else if (value > root->value) {
+        root->right = insert_node(root->right, value);
+    }
+    
+    return root;
+}
+
+void inorder_traversal(TreeNode* root) {
+    if (root != NULL) {
+        inorder_traversal(root->left);
+        printf("%d ", root->value);
+        inorder_traversal(root->right);
+    }
+}
+
+void free_tree(TreeNode* root) {
+    if (root != NULL) {
+        free_tree(root->left);
+        free_tree(root->right);
+        free(root);
+    }
+}
+
+int main() {
+    TreeNode* root = NULL;
+    int value;
+    char choice;
+
+    do {
+        printf("\nEnter a value to insert into the tree: ");
+        scanf("%d", &value);
+        
+        root = insert_node(root, value);
+        
+        printf("\nDo you want to insert another value? (y/n): ");
+        scanf(" %c", &choice); 
+    } while (choice == 'y' || choice == 'Y');
+
+    printf("\nIn-order traversal of the binary tree: ");
+    inorder_traversal(root);
+    printf("\n");
+
+    free_tree(root);
+
+    return 0;
+}
